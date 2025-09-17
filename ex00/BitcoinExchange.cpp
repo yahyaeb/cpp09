@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:12 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/17 17:59:50 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/17 18:32:41 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool BitcoinExchange::isValidDate(const std::string& date) const
 {
 	long temp;
 	char *end;
-	for(unsigned int i = 0; i > date.size(); i++)
+	for(unsigned int i = 0; i < date.size(); i++)
 	{
 		if(date[i] == ' ' || date[i] == '\r' || date[i] == '\t')
 			return false;
@@ -57,8 +57,25 @@ bool BitcoinExchange::isValidDate(const std::string& date) const
 	}
 	std::string year_str = date.substr(0,4);
 	temp = strtol(date.c_str(), &end, 10);
+	if(end != year_str.c_str() + 4)
+		return false;
 	if(temp > 2025 || temp < 2009)
 		return false;
+		
+	std::string month_str = date.substr(5,2);
+	temp = strtol(date.c_str(), &end, 10);
+	if(end != month_str.c_str() + 2)
+		return false;
+	if(temp > 12 || temp < 1)
+		return false;
+		
+	std::string day_str = date.substr(8,2);
+	temp = strtol(date.c_str(), &end, 10);
+	if(end != day_str.c_str() + 2)
+		return false;
+	if(temp < 1 || temp > 31)
+		return false;
+
 	return true;
 }
 
