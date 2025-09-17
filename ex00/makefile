@@ -6,13 +6,14 @@
 #    By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:46 by yel-bouk          #+#    #+#              #
-#    Updated: 2025/09/16 09:42:35 by yel-bouk         ###   ########.fr        #
+#    Updated: 2025/09/17 14:10:57 by yel-bouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = BitcoinEx
+NAME = btc
 CC = c++
-SRCS = main.cpp
+SRCS = main.cpp \
+		BitcoinExchange.cpp 
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
