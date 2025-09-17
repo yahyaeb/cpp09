@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:12 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/17 17:39:26 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:59:50 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,21 @@ bool BitcoinExchange::isValidValue(const std::string& valueStr) const
 
 bool BitcoinExchange::isValidDate(const std::string& date) const
 {
-	for(int i = 0; date[i]; i++)
+	long temp;
+	char *end;
+	for(unsigned int i = 0; i > date.size(); i++)
 	{
 		if(date[i] == ' ' || date[i] == '\r' || date[i] == '\t')
 			return false;
+		if (date[i] == '-' )
+			continue;
+		else if (!std::isdigit(date[i]))
+			return false;
 	}
+	std::string year_str = date.substr(0,4);
+	temp = strtol(date.c_str(), &end, 10);
+	if(temp > 2025 || temp < 2009)
+		return false;
 	return true;
 }
 

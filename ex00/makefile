@@ -6,7 +6,7 @@
 #    By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:46 by yel-bouk          #+#    #+#              #
-#    Updated: 2025/09/17 14:10:57 by yel-bouk         ###   ########.fr        #
+#    Updated: 2025/09/17 18:01:11 by yel-bouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ clean:
 	rm -f $(OBJS)
 	
 fclean:
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(OBJS)
 
 re: fclean all
 
