@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:12 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/18 16:14:20 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:23:36 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,54 @@ bool BitcoinExchange::isValidHeader(const std::string& header) const
 	return (header.compare("date | value") == 0);
 }
 
-// bool BitcoinExchange::isValidValue(const std::string& valueStr) const
-// {
-// 	if(valueStr.empty())
-// 		return false;
-// 	int dot = 0;
-// 	for(int i = 0; i < valueStr.size(); i++)
-// 	{
-// 		if(valueStr[i] == ' ' || valueStr[i] == '\r' || valueStr[i] == '\t')
-// 			return false;
-// 		if (valueStr[i] == '.' )
-// 		{
-// 			dot++;
-// 			if (dot > 1)
-// 				return false;
-// 		}
-// 		else if (!std::isdigit(valueStr[i]))
-// 			return false;
-// 	}
-// 	return true;
-// }
+bool BitcoinExchange::isValidValue(const std::string& valueStr) const
+{
+    size_t start = 0, len = valueStr.size();
+	// std::cout << "Value str: " << valueStr << std::endl; 
+    // Skip leading whitespace
+    while (start < len && std::isspace(valueStr[start]))
+        start++;
+
+    // Check for empty after trimming
+    if (start == len)
+        return false;
+
+    // Optional: Check for leading +/-
+    if (valueStr[start] == '-' || valueStr[start] == '+')
+        start++;
+
+    int dot = 0;
+    bool digitFound = false;
+
+    for (size_t i = start; i < len; ++i)
+    {
+        if (std::isspace(valueStr[i]))
+            return false; // Internal or trailing space is not allowed
+        if (valueStr[i] == '.')
+        {
+            if (++dot > 1)
+                return false;
+        }
+        else if (!std::isdigit(valueStr[i]))
+        {
+            return false;
+        }
+        else
+        {
+            digitFound = true;
+        }
+    }
+
+    // At least one digit must be found
+    if (!digitFound)
+        return false;
+
+    // Reject strings that are just "."
+    if (dot == 1 && !digitFound)
+        return false;
+
+    return true;
+}
 
 bool BitcoinExchange::isValidDate(const std::string& date) const
 {
@@ -135,12 +163,18 @@ void BitcoinExchange::processInput(const std::string& filename) const
 		if(line.empty())
 			std::cout << "Error: no data available" << std::endl;
 		std::size_t pos = line.find('|');
-		if (pos == std::string::npos)
+		if (pos == std::string::npos && !line.empty())
+		{
 			std::cout << "Error: missing '|' " << std::endl;
+			std::cout << "Bad input => " << line << std::endl;
+		}
 		else if (pos != 11)
 			std::cout << "Invalid date: '|' not in the right position" << std::endl;
 		if(!isValidDate(line.substr(0, 10)))
 			std::cout << "";
+		if(!isValidValue(&line[12]))
+			std::cout << "Invalid value" << std::endl;
+			
 		// std::istringstream iss(line);
 		// std::string date, value_str;
 		// if(isValidDate())
