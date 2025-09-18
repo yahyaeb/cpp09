@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 12:26:27 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/18 15:01:35 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/18 17:02:29 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 			// for (std::map<std::string, double>::const_iterator it = exchange_db.begin(); it != exchange_db.end(); ++it) {
 				// 	std::cout << it->first << " => " << it->second << "\n";
 				// }
-			file.processInput(argv[1]);
+			file.processInput(exchange_db, argv[1]);
 		}
 		catch(std::exception &e)
 		{

@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:15 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/18 14:51:38 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/18 16:41:46 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class BitcoinExchange {
 		BitcoinExchange();
 		~BitcoinExchange();
 		void loadData(std::map<std::string, double> &exchange_db);
-		void processInput(const std::string& filename) const;
+		void processInput(std::map<std::string, double> &exchange_db ,const std::string& filename) const;
 };
 
 #endif
