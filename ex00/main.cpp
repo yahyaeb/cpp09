@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 12:26:27 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/17 16:46:07 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/18 15:01:35 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 int main(int argc, char *argv[])
 {
+	std::map<std::string, double> exchange_db;
 	if(argc != 2)
-		std::cout << "invalid" << std::endl;
+		std::cout << "Missing file argument" << std::endl;
 	else
-	try{
-		BitcoinExchange file;
-		std::vector<Entry> entries;
-		file.loadData(argv[1], entries);	
-		for (std::size_t i = 0; i < entries.size(); ++i) {
-    		std::cout << entries[i].date << " => " << entries[i].value << "\n";
-		}
-
-	}
-	catch(std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		
+		try
+		{
+			BitcoinExchange file;
+			// 	// std::map<Entry> entries;
+			file.loadData(exchange_db);	
+			// for (std::map<std::string, double>::const_iterator it = exchange_db.begin(); it != exchange_db.end(); ++it) {
+				// 	std::cout << it->first << " => " << it->second << "\n";
+				// }
+			file.processInput(argv[1]);
+		}
+		catch(std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
+	
 	return 0;
 }
