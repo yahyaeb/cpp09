@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:59:17 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/20 14:21:48 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/20 15:45:44 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 #include <string>
 #include <vector>
 #include <deque>
-
+#include <iostream>
+#include <stack>
+#include <sstream>
+#include <cctype>
+#include <stdexcept>
+#include <sstream>
 
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP

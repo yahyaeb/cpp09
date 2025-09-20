@@ -6,19 +6,20 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:59:13 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/20 14:53:33 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:11:04 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-
+#include <algorithm>
 PmergeMe::PmergeMe(const std::vector<int>& input) : _vec(input),
 												_deq(input.begin(), input.end())
 {}
 
 void PmergeMe::sortAll()
 {
-	
+	std::sort(_vec.begin(), _vec.end());
+	std::sort(_deq.begin(), _deq.end());
 }
 
 void PmergeMe::printResults() const
