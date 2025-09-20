@@ -6,13 +6,13 @@
 #    By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/30 16:05:46 by yel-bouk          #+#    #+#              #
-#    Updated: 2025/08/30 12:37:41 by yel-bouk         ###   ########.fr        #
+#    Updated: 2025/09/20 12:30:17 by yel-bouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Bureaucrat
+NAME = PmergeMe
 CC = c++
-SRCS = Bureaucrat.cpp
+SRCS = PmergeMe.cpp
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
