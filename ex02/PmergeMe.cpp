@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 12:59:13 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/20 16:11:04 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:23:10 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void PmergeMe::sortAll()
 
 void PmergeMe::printResults() const
 {
-	std::cout << "Vecetor: ";
+	std::cout << "Vector: ";
 	for (std::vector<int>::const_iterator it = _vec.begin(); it != _vec.end(); ++it)
 		std::cout << *it << ' ';
 	std::cout << std::endl;
