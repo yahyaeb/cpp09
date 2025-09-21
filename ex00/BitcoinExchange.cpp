@@ -6,15 +6,25 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:12 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/18 16:55:58 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/21 17:17:48 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange() {};
-BitcoinExchange::~BitcoinExchange() {
-};
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
+{
+	(void) other;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
+{
+	(void) other;
+	return *this;
+}
+
+BitcoinExchange::~BitcoinExchange() {};
 
 bool BitcoinExchange::isValidHeader(const std::string& header) const 
 {
@@ -23,48 +33,48 @@ bool BitcoinExchange::isValidHeader(const std::string& header) const
 
 bool BitcoinExchange::isValidValue(const std::string& valueStr) const
 {
-    size_t start = 0, len = valueStr.size();
-	// std::cout << "Value str: " << valueStr << std::endl; 
-    // Skip leading whitespace
-    while (start < len && std::isspace(valueStr[start]))
-        start++;
+	size_t start = 0, len = valueStr.size();
 
-    // Check for empty after trimming
-    if (start == len)
-        return false;
+	// Skip leading whitespace
+	while (start < len && std::isspace(valueStr[start]))
+		start++;
 
-    // Optional: Check for leading +/-
-    if (valueStr[start] == '-' || valueStr[start] == '+')
-        start++;
+	// Check for empty after trimming
+	if (start == len)
+		return false;
 
-    int dot = 0;
-    bool digitFound = false;
+	// Optional: Check for leading +/-
+	if (valueStr[start] == '-' || valueStr[start] == '+')
+		start++;
 
-    for (size_t i = start; i < len; ++i)
-    {
-        if (std::isspace(valueStr[i]))
-            return false; // Internal or trailing space is not allowed
-        if (valueStr[i] == '.')
-        {
-            if (++dot > 1)
-                return false;
-        }
-        else if (!std::isdigit(valueStr[i]))
-        {
-            return false;
-        }
-        else
-        {
-            digitFound = true;
-        }
-    }
-    // At least one digit must be found
-    if (!digitFound)
-        return false;
-    // Reject strings that are just "."
-    if (dot == 1 && !digitFound)
-        return false;
-    return true;
+	int dot = 0;
+	bool digitFound = false;
+
+	for (size_t i = start; i < len; ++i)
+	{
+		if (std::isspace(valueStr[i]))
+			return false; // Internal or trailing space is not allowed
+		if (valueStr[i] == '.')
+		{
+			if (++dot > 1)
+				return false;
+		}
+		else if (!std::isdigit(valueStr[i]))
+		{
+			return false;
+		}
+		else
+		{
+			digitFound = true;
+		}
+	}
+	// At least one digit must be found
+	if (!digitFound)
+		return false;
+	// Reject strings that are just "."
+	if (dot == 1 && !digitFound)
+		return false;
+	return true;
 }
 
 bool BitcoinExchange::isValidDate(const std::string& date) const
@@ -147,73 +157,73 @@ void BitcoinExchange::loadData(std::map<std::string, double>& exchange_db)
 }
 void BitcoinExchange::processInput(std::map<std::string, double> &exchange_db, const std::string& filename) const
 {
-    std::ifstream input(filename.c_str());
-    if (!input)
-        throw std::runtime_error("Error: could not open data file.");
+	std::ifstream input(filename.c_str());
+	if (!input)
+		throw std::runtime_error("Error: could not open data file.");
 
-    std::string line;
-    std::getline(input, line);
-    if (!isValidHeader(line)) {
-        std::cout << "Header file doesn't match: date | value" << std::endl;
-        return;
-    }
+	std::string line;
+	std::getline(input, line);
+	if (!isValidHeader(line)) {
+		std::cout << "Header file doesn't match: date | value" << std::endl;
+		return;
+	}
 
-    while (std::getline(input, line))
-    {
-        if (line.empty()) {
-            std::cout << "Error: no data available" << std::endl;
-            continue;
-        }
+	while (std::getline(input, line))
+	{
+		if (line.empty()) {
+			std::cout << "Error: no data available" << std::endl;
+			continue;
+		}
 
-        std::size_t pos = line.find('|');
-        if (pos == std::string::npos) {
-            std::cout << "Error: missing '|' \nBad input => " << line << std::endl;
-            continue;
-        }
-        if (pos != 11) {
-            std::cout << "Invalid date: '|' not in the right position" << std::endl;
-            continue;
-        }
+		std::size_t pos = line.find('|');
+		if (pos == std::string::npos) {
+			std::cout << "Error: missing '|' \nBad input => " << line << std::endl;
+			continue;
+		}
+		if (pos != 11) {
+			std::cout << "Invalid date: '|' not in the right position" << std::endl;
+			continue;
+		}
 
-        std::string date = line.substr(0, 10);
-        std::string value_str = line.substr(12);
+		std::string date = line.substr(0, 10);
+		std::string value_str = line.substr(12);
 
-        if (!isValidDate(date)) {
-            std::cout << "Error: invalid date" << std::endl;
-            continue;
-        }
+		if (!isValidDate(date)) {
+			std::cout << "Error: invalid date" << std::endl;
+			continue;
+		}
 
-        if (!isValidValue(value_str)) {
-            std::cout << "Error: invalid value" << std::endl;
-            continue;
-        }
+		if (!isValidValue(value_str)) {
+			std::cout << "Error: invalid value" << std::endl;
+			continue;
+		}
 
-        double value = atof(value_str.c_str());
-        if (value < 0) {
-            std::cout << "Error: not a positive number." << std::endl;
-            continue;
-        }
-        if (value > 1000) {
-            std::cout << "Error: too large a number." << std::endl;
-            continue;
-        }
+		double value = atof(value_str.c_str());
+		if (value < 0) {
+			std::cout << "Error: not a positive number." << std::endl;
+			continue;
+		}
+		if (value > 1000) {
+			std::cout << "Error: too large a number." << std::endl;
+			continue;
+		}
 
-        std::map<std::string, double>::const_iterator it = exchange_db.find(date);
-        if (it != exchange_db.end()) {
-            // Direct date match
-            std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
-        } else {
-            // Find closest lower date
-            it = exchange_db.lower_bound(date);
-            if (it != exchange_db.begin())
-                --it;
-            if (it == exchange_db.end() || it->first > date) {
-                std::cout << "Error: date out of range" << std::endl;
-            } else {
-                std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
-            }
-        }
-    }
-    input.close();
+		std::map<std::string, double>::const_iterator it = exchange_db.find(date);
+		if (it != exchange_db.end()) {
+			// Direct date match
+			std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
+		} else {
+			// Find closest lower date
+			it = exchange_db.lower_bound(date);
+			if (it != exchange_db.begin())
+				--it;
+			if (it == exchange_db.end() || it->first > date) {
+				std::cout << "Error: date out of range" << std::endl;
+			} else {
+				std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
+			}
+		}
+	}
+	input.close();
 }
 

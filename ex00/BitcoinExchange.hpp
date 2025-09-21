@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 09:43:15 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/18 16:41:46 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/21 17:10:25 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ class BitcoinExchange {
 		float getExchangeRate(const std::string& date) const;
 	public:
 		BitcoinExchange();
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 		void loadData(std::map<std::string, double> &exchange_db);
 		void processInput(std::map<std::string, double> &exchange_db ,const std::string& filename) const;

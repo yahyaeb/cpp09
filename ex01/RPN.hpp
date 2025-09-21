@@ -6,7 +6,7 @@
 /*   By: yel-bouk <yel-bouk@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:15:20 by yel-bouk          #+#    #+#             */
-/*   Updated: 2025/09/19 12:12:46 by yel-bouk         ###   ########.fr       */
+/*   Updated: 2025/09/21 17:11:03 by yel-bouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 class RPN {
 	public:
 		RPN();
+		RPN(const RPN& other);
+		RPN& operator=(const RPN& other);
 		~RPN();
 		int evaluate(const std::string& expression);
 	private:
